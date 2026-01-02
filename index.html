@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#0b0f1a" />
+  <title>OneTap Player</title>
+
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="icon" href="./icons/icon-192.png" />
+
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="brand">
+        <div class="logo">▶</div>
+        <div class="brandText">
+          <div class="title">OneTap Player</div>
+          <div class="subtitle">ワンタップで即再生（LOCAL / URL / YouTube）</div>
+        </div>
+      </div>
+      <div class="statusRow">
+        <span id="netBadge" class="badge">判定中…</span>
+        <span id="swBadge" class="badge badge-muted">SW: 未登録</span>
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="card hero">
+        <button id="playBtn" class="playBtn" aria-label="再生/停止">
+          <span id="playIcon" class="playIcon">▶</span>
+          <span class="playText">
+            <span id="playLabel" class="playLabel">再生</span>
+            <span id="playHint" class="playHint">すぐ鳴るように最適化</span>
+          </span>
+        </button>
+
+        <div class="now">
+          <div class="nowHead">
+            <div class="nowTitle">現在選択中</div>
+            <div id="typeBadge" class="pill">LOCAL</div>
+          </div>
+          <div class="nowTag" id="nowTag">サンプル</div>
+          <div class="nowUrl" id="nowUrl">assets/sample.mp3</div>
+          <div class="tinyNote" id="nowNote">
+            YouTubeはオンライン専用＆バックグラウンドで止まる場合があります（iOSの制約）。
+          </div>
+          <div id="msg" class="msg" role="status" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section class="grid">
+        <section class="card">
+          <h2 class="cardTitle">追加 / 更新</h2>
+
+          <div class="form">
+            <label class="field">
+              <span class="label">タグ（名前）</span>
+              <input id="tagInput" class="input" placeholder="例：集中用 / 朝 / Lo-fi" maxlength="40" />
+            </label>
+
+            <label class="field">
+              <span class="label">URL（mp3直リンク or YouTube）</span>
+              <input id="urlInput" class="input" placeholder="https://...  または  https://youtu.be/..." />
+              <span class="help">
+                直リンク例：.../music.mp3　／　YouTube例：watch?v= / youtu.be / shorts
+              </span>
+            </label>
+
+            <button id="addUrlBtn" class="btn">URLを追加</button>
+          </div>
+
+          <div class="divider"></div>
+
+          <h3 class="miniTitle">端末から音源を追加（オフラインOK）</h3>
+          <div class="fileRow">
+            <label class="fileBtn">
+              <input id="fileInput" type="file" accept="audio/*" />
+              音源ファイルを選ぶ
+            </label>
+            <div class="help">
+              取り込んだ音源は端末内（IndexedDB）に保存され、機内モードでも再生できます。
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="listHead">
+            <h2 class="cardTitle">保存した曲</h2>
+            <button id="resetBtn" class="btn btn-ghost" title="初期化">初期化</button>
+          </div>
+          <div id="list" class="list"></div>
+          <div class="tinyNote">
+            ※ トグルONは1つだけ。切り替えると前のONは自動でOFFになります。
+          </div>
+        </section>
+      </section>
+
+      <!-- YouTubeプレイヤー（display:noneは避ける：止まりやすい） -->
+      <div class="ytWrap" aria-hidden="true">
+        <div class="ytLabel">YT</div>
+        <div id="ytPlayer" class="ytPlayer"></div>
+      </div>
+
+      <section class="card footer">
+        <h2 class="cardTitle">使い方（超短）</h2>
+        <ol class="steps">
+          <li>起動 → <b>再生</b>を押す（最初はサンプルが鳴ります）</li>
+          <li>URLで追加：<b>mp3直リンク</b> or <b>YouTube</b> のURLを貼って追加</li>
+          <li>端末音源：<b>音源ファイルを選ぶ</b>で追加（機内モードでもOK）</li>
+          <li>曲を切り替える：一覧のトグルをON → 再生ボタン</li>
+        </ol>
+        <div class="tinyNote">
+          GitHub Pagesで公開後、iPhone Safariで開いて「共有 → ホーム画面に追加」でアプリっぽく使えます。
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="./script.js"></script>
+</body>
+</html>
